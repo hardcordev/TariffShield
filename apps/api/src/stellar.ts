@@ -78,3 +78,11 @@ export async function getCurrentLedgerSequence(): Promise<number> {
     throw err;
   }
 }
+
+/**
+ * Pings the Soroban RPC server to check if it's reachable.
+ */
+export async function pingRpc(): Promise<void> {
+  const server = createRpcServer(env.STELLAR_RPC_URL);
+  await server.getNetwork();
+}

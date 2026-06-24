@@ -85,3 +85,10 @@ export async function updateLastProcessedLedger(ledger: number): Promise<void> {
     ["default", ledger]
   );
 }
+
+/**
+ * Pings the database to check if it's alive.
+ */
+export async function ping(): Promise<void> {
+  await pool.query("SELECT 1");
+}
