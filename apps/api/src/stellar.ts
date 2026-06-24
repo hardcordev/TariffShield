@@ -1,7 +1,8 @@
-import { Keypair, rpc } from "@stellar/stellar-sdk";
+import { Keypair } from "@stellar/stellar-sdk";
 import { TariffShieldClient } from "@tariffshield/sdk";
 import client from "prom-client";
 import { env } from "./env.js";
+import { createRpcServer } from "./lib/soroban/rpcClient.js";
 
 export const platformKeypair = Keypair.fromSecret(env.PLATFORM_STELLAR_SECRET);
 export const suretyKeypair = Keypair.fromSecret(env.SURETY_STELLAR_SECRET);
@@ -19,10 +20,13 @@ export const sorobanRpcDurationSeconds = new client.Histogram({
   buckets: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5],
 });
 
+const rpcServer = createRpcServer(env.STELLAR_RPC_URL);
+
 const baseClient = new TariffShieldClient({
   rpcUrl: env.STELLAR_RPC_URL,
   contractId: env.TARIFF_SHIELD_CONTRACT_ID,
   networkPassphrase: env.STELLAR_NETWORK_PASSPHRASE,
+  server: rpcServer,
 });
 
 export const contractClient = new Proxy(baseClient, {
@@ -56,9 +60,7 @@ export const explorerTx = (hash: string): string =>
   `https://stellar.expert/explorer/${env.STELLAR_NETWORK}/tx/${hash}`;
 
 export async function getCurrentLedgerSequence(): Promise<number> {
-  const server = new rpc.Server(env.STELLAR_RPC_URL, {
-    allowHttp: env.STELLAR_RPC_URL.startsWith("http://"),
-  });
+  const server = createRpcServer(env.STELLAR_RPC_URL);
   const methodName = "getLatestLedger";
   const start = process.hrtime();
   try {
