@@ -15,6 +15,8 @@ export const Env = z.object({
 
   TARIFF_SHIELD_CONTRACT_ID: z.string().startsWith("C").min(56).describe("Soroban contract ID for TariffShield"),
   PLATFORM_STELLAR_SECRET: z.string().startsWith("S").min(56).describe("Admin/platform Stellar secret key"),
+  ADMIN_2_SECRET: z.string().startsWith("S").min(56).optional().describe("Admin 2 Stellar secret key for multi-sig upgrade"),
+  ADMIN_3_SECRET: z.string().startsWith("S").min(56).optional().describe("Admin 3 Stellar secret key for multi-sig upgrade"),
   SURETY_STELLAR_SECRET: z.string().startsWith("S").min(56).describe("Surety provider Stellar secret key"),
   METRICS_ALLOWED_CIDR: z.string().optional().describe("CIDR block allowed to access Prometheus metrics"),
 });
