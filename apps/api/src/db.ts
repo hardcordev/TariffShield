@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { env } from "./env.js";
+import { env } from "./config/env.js";
 
 const url = new URL(env.DATABASE_URL);
 const sslRequired = url.searchParams.get("sslmode") === "require";

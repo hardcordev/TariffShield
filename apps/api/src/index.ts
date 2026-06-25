@@ -5,7 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import client from "prom-client";
-import { env, isProduction } from "./env.js";
+import { env, isProduction } from "./config/env.js";
 import { migrate } from "./db.js";
 import { authRouter } from "./routes/auth.js";
 import { importersRouter } from "./routes/importers.js";

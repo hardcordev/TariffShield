@@ -1,7 +1,7 @@
 import { Keypair } from "@stellar/stellar-sdk";
 import { TariffShieldClient } from "@tariffshield/sdk";
 import client from "prom-client";
-import { env } from "./env.js";
+import { env } from "./config/env.js";
 import { createRpcServer } from "./lib/soroban/rpcClient.js";
 
 export const platformKeypair = Keypair.fromSecret(env.PLATFORM_STELLAR_SECRET);

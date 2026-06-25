@@ -1,5 +1,7 @@
 # TariffShield
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/vjuliaife/TariffShield)
+
 > Programmable customs-bond collateral. US importers post yield-bearing USDC instead of dead-weight cash collateral; a Soroban smart contract auto-tops-up the bond during tariff spikes; the surety partner keeps emergency clawback authority.
 
 A working end-to-end system on Stellar: one Soroban contract, a TypeScript SDK, a REST API, a web dashboard.
@@ -57,6 +59,18 @@ tariffshield/
 ```
 
 One git repo. `npm workspaces` resolves the TypeScript packages; `cargo workspace` resolves the Rust contract. `docker compose up` brings up Postgres.
+
+## Quick start with Dev Containers
+
+The easiest way to get started is using GitHub Codespaces or the VS Code Dev Containers extension. The environment is pre-configured with Node.js, Rust, Docker, and the Soroban CLI.
+
+1. Open the repository in [GitHub Codespaces](https://codespaces.new/vjuliaife/TariffShield) or open locally in VS Code and click **Reopen in Container**.
+2. The container will automatically install dependencies, copy environment variables, and start the Postgres database.
+3. Run the applications:
+   ```bash
+   npm run dev:api      # API on :3002
+   npm run dev:web      # Web on :3000
+   ```
 
 ## Quickstart
 
