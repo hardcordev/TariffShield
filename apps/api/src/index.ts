@@ -1,3 +1,4 @@
+import "./tracing.js";
 import "./instrument.js";
 import * as Sentry from "@sentry/node";
 import express, { type NextFunction, type Request, type Response } from "express";

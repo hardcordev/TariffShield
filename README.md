@@ -66,6 +66,24 @@ tariffshield/
 
 One git repo. `npm workspaces` resolves the TypeScript packages; `cargo workspace` resolves the Rust contract. `docker compose up` brings up Postgres. See [docs/dep-graph.md](./docs/dep-graph.md) for package dependency visualization.
 
+## Full-stack Docker
+
+Bring up the entire TariffShield stack — Postgres, API, web, and Jaeger — with a single command:
+
+```bash
+cp apps/api/.env.example apps/api/.env   # fill in secrets first
+docker-compose up --build
+```
+
+| Service | URL |
+|---|---|
+| Web dashboard | http://localhost:3000 |
+| REST API | http://localhost:3002 |
+| Jaeger tracing UI | http://localhost:16686 |
+| Postgres | localhost:5443 |
+
+For hot-reload during development, `docker-compose.override.yml` mounts source directories automatically — no `--build` needed after editing TypeScript.
+
 ## Quick start with Dev Containers
 
 The easiest way to get started is using GitHub Codespaces or the VS Code Dev Containers extension. The environment is pre-configured with Node.js, Rust, Docker, and the Soroban CLI.
@@ -153,6 +171,21 @@ The current build pairs the on-chain contract with synthetic CBP data and a mock
 4. **State-by-state insurance regulator approval.** Sureties are regulated in every US state. Changing the collateral instrument backing a bond is an insurance question, not just a CBP question.
 
 These gates are GTM, not technical. The technology, end-to-end, works today.
+
+## Troubleshooting
+
+Running into a setup or runtime error? Check **[docs/FAQ.md](./docs/FAQ.md)** for the 10 most common issues with copy-paste fixes:
+
+- Postgres connection refused on startup
+- Missing `.env` file crash
+- Soroban RPC timeout or SSL error
+- `cargo build` missing libpq / OpenSSL
+- XDR decoding panic in the Stellar SDK
+- `npm install` peer dependency conflicts
+- Friendbot 400 error on testnet
+- `NEXT_PUBLIC_*` vars not visible in the browser
+- JWT token expired during development
+- `docker-compose` port conflict on 5432
 
 ## License
 
