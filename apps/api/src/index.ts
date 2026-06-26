@@ -14,6 +14,7 @@ import { adminRouter } from "./routes/admin.js";
 import { startIndexer } from "./indexer.js";
 import { ping } from "./db.js";
 import { pingRpc } from "./stellar.js";
+import { startReconciliationJob } from "./jobs/reconcile-balances.js";
 import { startOracleMonitor } from "./services/oracle-monitor.js";
 
 const app = express();
@@ -319,6 +320,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 async function start() {
   await migrate();
   await startIndexer();
+  startReconciliationJob();
   await startOracleMonitor();
   app.listen(env.PORT, () => {
     console.log(`[boot] tariffshield API on :${env.PORT}`);
